@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VENKY's DAY OUT</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: #fff;
+            text-align: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .question {
+            font-size: clamp(28px, 5vw, 60px);
+            margin-top: 40px;
+            padding: 0 10px;
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-size: clamp(70px, 12vw, 120px);
+            margin-top: 10px;
+        }
+
+        button {
+            border: none;
+            border-radius: 14px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: left 0.08s linear, top 0.08s linear;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        #yes {
+            position: fixed;
+            background-color: #4CAF50;
+
+            width: clamp(180px, 30vw, 300px);
+            height: clamp(70px, 12vw, 110px);
+
+            font-size: clamp(28px, 4vw, 50px);
+
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        #no,
+        #maybe {
+            position: fixed;
+
+            width: clamp(150px, 24vw, 240px);
+            height: clamp(60px, 10vw, 100px);
+
+            font-size: clamp(18px, 3vw, 30px);
+
+            z-index: 3;
+        }
+
+        #no {
+            background-color: #f44336;
+            left: 20px;
+            top: 70%;
+        }
+
+        #maybe {
+            background-color: #ff9800;
+            left: 250px;
+            top: 75%;
+        }
+
+        @media (max-width: 600px) {
+
+            .question {
+                margin-top: 25px;
+            }
+
+            #yes {
+                top: 58%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="question">
+            Shall we go out shopping anytime this weekend??
+        </div>
+
+        <div class="emoji">
+            &#128578;
+        </div>
+
+    </div>
+
+    <button id="yes">Yes!</button>
+
+    <button id="no">Noooo!!!!</button>
+
+    <button id="maybe">Maybe next time</button>
+
+    <script>
+
+        const noBtn = document.getElementById('no');
+        const maybeBtn = document.getElementById('maybe');
+
+        function moveButton(button) {
+
+            const buttonWidth = button.offsetWidth;
+            const buttonHeight = button.offsetHeight;
+
+            const padding = 10;
+
+            const maxX = window.innerWidth - buttonWidth - padding;
+            const maxY = window.innerHeight - buttonHeight - padding;
+
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+
+            // Safe area for text
+            const topSafeArea = window.innerWidth < 600 ? 220 : 260;
+
+            if (y < topSafeArea) {
+                y = topSafeArea;
+            }
+
+            if (x < padding) x = padding;
+            if (y < padding) y = padding;
+
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+
+      
+        setInterval(() => {
+            moveButton(noBtn);
+            moveButton(maybeBtn);
+        }, 300);
+
+        noBtn.addEventListener('mouseover', () => moveButton(noBtn));
+        maybeBtn.addEventListener('mouseover', () => moveButton(maybeBtn));
+
+        noBtn.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+            moveButton(noBtn);
+        });
+
+        maybeBtn.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+            moveButton(maybeBtn);
+        });
+        document.getElementById('yes').addEventListener('click', function () {
+
+            alert('OKAY Gomathii 😊');
+
+        });
+
+    </script>
+
+</body>
+
+</html>
